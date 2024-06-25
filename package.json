@@ -37,6 +37,7 @@
   "peerDependencies": {
     "expo": "*",
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "expo-intent-launcher": "*"
   }
 }

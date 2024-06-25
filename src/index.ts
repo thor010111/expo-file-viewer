@@ -1,26 +1,22 @@
-import { NativeModulesProxy, EventEmitter, Subscription } from 'expo-modules-core';
+import FileSystem from "expo-file-system";
+import { startActivityAsync } from "expo-intent-launcher";
+import { Platform } from "expo-modules-core";
+import { Linking } from "react-native";
 
-// Import the native module. On web, it will be resolved to ExpoFileViewer.web.ts
-// and on native platforms to ExpoFileViewer.ts
-import ExpoFileViewerModule from './ExpoFileViewerModule';
-import ExpoFileViewerView from './ExpoFileViewerView';
-import { ChangeEventPayload, ExpoFileViewerViewProps } from './ExpoFileViewer.types';
+import ExpoFileViewerModule from "./ExpoFileViewerModule";
 
-// Get the native constant value.
-export const PI = ExpoFileViewerModule.PI;
-
-export function hello(): string {
-  return ExpoFileViewerModule.hello();
+async function openFile(filePath: string) {
+  if (Platform.OS === "web") {
+    await Linking.openURL(filePath);
+  } else if (Platform.OS === "android") {
+    const contentUri = await FileSystem.getContentUriAsync(filePath);
+    await startActivityAsync("android.intent.action.VIEW", {
+      data: contentUri,
+      flags: 1,
+    });
+  } else if (Platform.OS === "ios") {
+    await ExpoFileViewerModule.openFile(filePath);
+  }
 }
 
-export async function setValueAsync(value: string) {
-  return await ExpoFileViewerModule.setValueAsync(value);
-}
-
-const emitter = new EventEmitter(ExpoFileViewerModule ?? NativeModulesProxy.ExpoFileViewer);
-
-export function addChangeListener(listener: (event: ChangeEventPayload) => void): Subscription {
-  return emitter.addListener<ChangeEventPayload>('onChange', listener);
-}
-
-export { ExpoFileViewerView, ExpoFileViewerViewProps, ChangeEventPayload };
+export { openFile };
