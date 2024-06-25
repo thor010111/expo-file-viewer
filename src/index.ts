@@ -1,7 +1,6 @@
-import FileSystem from "expo-file-system";
+import * as FileSystem from "expo-file-system";
 import { startActivityAsync } from "expo-intent-launcher";
-import { Platform } from "expo-modules-core";
-import { Linking } from "react-native";
+import { Linking, Platform } from "react-native";
 
 import ExpoFileViewerModule from "./ExpoFileViewerModule";
 

@@ -38,6 +38,7 @@
     "expo": "*",
     "react": "*",
     "react-native": "*",
-    "expo-intent-launcher": "*"
+    "expo-intent-launcher": "*",
+    "expo-file-system": "*"
   }
 }
