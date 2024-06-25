@@ -1,0 +1,9 @@
+{
+  "platforms": ["ios", "tvos", "android", "web"],
+  "ios": {
+    "modules": ["ExpoFileViewerModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.fileviewer.ExpoFileViewerModule"]
+  }
+}
