@@ -28,7 +28,11 @@
   "author": "Thorsten Kehren <thorsten.wesseler@johnnybytes.com> (https://github.com/thor010111)",
   "license": "MIT",
   "homepage": "https://github.com/thor010111/expo-file-viewer#readme",
-  "dependencies": {},
+  "dependencies": {
+    "react-native": "0.73.6",
+    "expo-file-system": "~16.0.9",
+    "expo-intent-launcher": "~10.11.0"
+  },
   "devDependencies": {
     "@types/react": "^18.0.25",
     "expo-module-scripts": "^3.5.2",
