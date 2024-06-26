@@ -3,33 +3,30 @@ import { startActivityAsync } from "expo-intent-launcher";
 import { requireNativeModule } from "expo-modules-core";
 import { Linking, Platform } from "react-native";
 
-interface ExpoFileViewerModule {
-  openFile(filePath: string): Promise<void>;
-}
+type OpenFileFunction = (filePath: string) => Promise<void>;
 
-let expoFileViewerModule: ExpoFileViewerModule;
+let openFile: OpenFileFunction;
 
 switch (Platform.OS) {
   case "ios":
-    expoFileViewerModule = requireNativeModule("ExpoFileViewer");
+    openFile = async (filePath: string) => {
+      const expoFileViewer = requireNativeModule("ExpoFileViewer");
+      await expoFileViewer.openFile(filePath);
+    };
     break;
   case "android":
-    expoFileViewerModule = {
-      openFile: async (filePath: string) => {
-        const contentUri = await FileSystem.getContentUriAsync(filePath);
-        await startActivityAsync("android.intent.action.VIEW", {
-          data: contentUri,
-          flags: 1,
-        });
-      },
+    openFile = async (filePath: string) => {
+      const contentUri = await FileSystem.getContentUriAsync(filePath);
+      await startActivityAsync("android.intent.action.VIEW", {
+        data: contentUri,
+        flags: 1,
+      });
     };
     break;
   default:
-    expoFileViewerModule = {
-      openFile: async (filePath: string) => {
-        await Linking.openURL(filePath);
-      },
+    openFile = async (filePath: string) => {
+      await Linking.openURL(filePath);
     };
 }
 
-export default expoFileViewerModule;
+export { openFile };

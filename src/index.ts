@@ -1,3 +1,3 @@
-import ExpoFileViewerModule from "./ExpoFileViewerModule";
+import { openFile } from "./ExpoFileViewerModule";
 
-export default ExpoFileViewerModule;
+export { openFile };
