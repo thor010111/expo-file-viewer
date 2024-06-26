@@ -15,13 +15,6 @@
       "supportsTablet": true,
       "bundleIdentifier": "expo.modules.fileviewer.example"
     },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "expo.modules.fileviewer.example"
-    },
     "web": {
       "favicon": "./assets/favicon.png"
     }
