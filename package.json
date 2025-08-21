@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "expo-intent-launcher": "~12.1.5",
-    "expo-file-system": "~18.1.11"
+    "expo-file-system": "~18.1.11",
+    "react-native": "0.79.5"
   }
 }
