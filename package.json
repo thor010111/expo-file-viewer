@@ -1,6 +1,6 @@
 {
   "name": "expo-file-viewer",
-  "version": "0.1.0",
+  "version": "53.0.0",
   "description": "A module to view various files.",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -29,14 +29,16 @@
   "license": "MIT",
   "homepage": "https://github.com/thor010111/expo-file-viewer#readme",
   "devDependencies": {
-    "expo-module-scripts": "^3.5.2",
-    "expo-modules-core": "~2.5.0"
+    "expo-module-scripts": "^4.1.9",
+    "expo-modules-core": "^2.5.0"
   },
   "peerDependencies": {
-    "expo": "^53.0.20",
-    "expo-file-system": "*",
-    "expo-intent-launcher": "*",
+    "expo": "*",
     "react": "*",
     "react-native": "*"
+  },
+  "dependencies": {
+    "expo-intent-launcher": "~12.1.5",
+    "expo-file-system": "~18.1.11"
   }
 }
