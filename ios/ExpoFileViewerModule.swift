@@ -6,19 +6,34 @@ public class ExpoFileViewerModule: Module {
     Name("ExpoFileViewer")
 
     AsyncFunction("openFile") { (filePath: String, promise: Promise) in
-        
-        DispatchQueue.main.async {
+        let workItem = DispatchWorkItem {
             guard let activeViewController = UIApplication.shared.topViewController() else {
+                promise.reject("NO_VIEW_CONTROLLER", "No active view controller found")
                 return
             }
-            do {
-                let preview = ExpoFileViewerPreview(file: URL(fileURLWithPath: filePath))
-                preview.show(viewController: activeViewController, promise: promise)
-            } catch let error {
-                promise.reject(error)
+            
+            // Handle both file:// URLs and file paths
+            let fileURL: URL
+            if filePath.hasPrefix("file://") {
+                guard let url = URL(string: filePath) else {
+                    promise.reject("INVALID_URL", "Invalid file URL: \(filePath)")
+                    return
+                }
+                fileURL = url
+            } else {
+                fileURL = URL(fileURLWithPath: filePath)
             }
             
+            // Check if file exists
+            guard FileManager.default.fileExists(atPath: fileURL.path) else {
+                promise.reject("FILE_NOT_FOUND", "File does not exist at path: \(fileURL.path)")
+                return
+            }
+            
+            let preview = ExpoFileViewerPreview(file: fileURL)
+            preview.show(viewController: activeViewController, promise: promise)
         }
+        DispatchQueue.main.async(execute: workItem)
     }
   }
 }

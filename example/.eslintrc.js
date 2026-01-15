@@ -1,7 +1,6 @@
 module.exports = {
   root: true,
-  extends: ["universe/native", "universe/web"],
-  ignorePatterns: ["build"],
+  extends: ["../.eslintrc.js"],
   rules: {
     "@typescript-eslint/no-empty-object-type": "off",
     "@typescript-eslint/no-wrapper-object-types": "off",

@@ -1,14 +1,20 @@
-import * as FileSystem from "expo-file-system";
+import { Asset } from "expo-asset";
 import * as ExpoFileViewer from "expo-file-viewer";
 import { StyleSheet, Text, TouchableHighlight, View } from "react-native";
 
 export default function App() {
   const openDUmmyFile = async () => {
-    const dummyPdfFilePath = `${FileSystem.bundleDirectory}/Resources/dummy.pdf`;
+    try {
+      const asset = Asset.fromModule(require("./assets/dummy.pdf"));
+      await asset.downloadAsync();
+      if (!asset.localUri) {
+        throw new Error("Failed to load asset");
+      }
 
-    console.log("dummyPdfFilePath open");
-    await ExpoFileViewer.openFile(dummyPdfFilePath);
-    console.log("dummyPdfFilePath close");
+      await ExpoFileViewer.openFile(asset.localUri);
+    } catch (error) {
+      alert(`Error: ${error instanceof Error ? error.message : String(error)}`);
+    }
   };
 
   return (

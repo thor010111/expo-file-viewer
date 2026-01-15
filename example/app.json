@@ -20,6 +20,17 @@
     },
     "android": {
       "package": "expo.modules.fileviewer.example"
-    }
+    },
+    "plugins": [
+      [
+        "expo-asset",
+        {
+          "assets": [
+            "./assets/dummy.pdf"
+          ]
+        }
+      ],
+      "../app.plugin.js"
+    ]
   }
 }
